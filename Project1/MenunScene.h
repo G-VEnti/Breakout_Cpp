@@ -11,7 +11,7 @@ class MenuScene : public Scene
 
 	void Update() override
 	{
-		bool exitScene = true;
+		bool exitScene = false;
 
 		while (!exitScene) 
 		{

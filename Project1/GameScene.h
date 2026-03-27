@@ -43,7 +43,7 @@ public:
 
 	void Update() override
 	{
-		bool exitScene = true;
+		bool exitScene = false;
 
 		while (!exitScene)
 		{
@@ -58,7 +58,7 @@ public:
 			Render();
 		}
 
-		nextScene = SceneIndex::GAMEPLAY;
+		nextScene = SceneIndex::MAIN_MENU;
 	}
 
 	void Render() override
