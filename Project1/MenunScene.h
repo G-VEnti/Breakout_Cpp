@@ -31,6 +31,10 @@ class MenuScene : public Scene
 
 	void Render() override
 	{
+		system("cls");
 		std::cout << "Menu, press 1 to continue:";
+	}
+	void Clear() override {
+
 	}
 };

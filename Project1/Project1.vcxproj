@@ -130,6 +130,7 @@
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="ConsoleControl.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Pad.cpp" />
     <ClCompile Include="Scene.cpp" />
