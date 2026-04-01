@@ -1,7 +1,8 @@
 #pragma once
 #include <vector>
 #include <iostream>
-#include <GameInput.h>
+#include "GameInput.h"
+#include "GameObject.h"
 
 class Scene
 {

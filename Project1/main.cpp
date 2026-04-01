@@ -11,7 +11,7 @@
 #include "Const.h"
 #include "Scene.h"
 #include "GameScene.h"
-#include "MenunScene.h"
+#include "MenuScene.h"
 
 int main() {
 	srand((unsigned int)time(NULL));

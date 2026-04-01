@@ -4,6 +4,7 @@
 #include "Pad.h"
 #include "Brick.h"
 #include "Ball.h"
+#include "Vector2.h"
 
 void GameplayScene::CreateWalls(std::vector<GameObject*>& objects) {
 	for (int i = 0; i < MAP_SIZE; i++) {
