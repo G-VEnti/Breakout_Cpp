@@ -1,4 +1,5 @@
 #include "MenuScene.h"
+#include "GameManager.h"
 
 void MenuScene::Start()
 {
@@ -12,7 +13,7 @@ void MenuScene::Update()
 	while (!exitScene)
 	{
 		Sleep(100);
-
+		GameManager::GetInstance()->PrintHi();
 		for (int i = 0; i < objects.size(); i++) {
 			objects[i]->Update();
 		}
