@@ -1,13 +1,46 @@
 #include "GameManager.h"
-#include <iostream>
-
-GameManager *GameManager::GetInstance()
+#include "ConsoleControl.h"
+#include "Const.h"
+GameManager& GameManager::GetInstance()
 {
-    if (!instance) instance = new GameManager();
-    return instance;
+	//destroyed or instanciated on first use
+	static GameManager instance;
+	return instance;
 }
 
-void GameManager::PrintHi()
+int GameManager::GetPlayerScore()
 {
-    std::cout << "hihi";
+	return CurrentPlayer.Score;
+}
+
+std::string GameManager::GetPlayerName()
+{
+	return CurrentPlayer.Name;
+}
+
+void GameManager::AddScore(int scoreToAdd)
+{
+	CurrentPlayer.Score += scoreToAdd;
+}
+
+void GameManager::GameFinished()
+{
+	ConsoleXY(0,MAP_SIZE+4);
+	std::cout << "Game Finished!" << std::endl;
+	SavePlayerStats();
+	//debug
+	quick_exit(0);
+
+}
+
+void GameManager::NewGame(std::string playerName)
+{
+	//make sure reset stats for new game
+	CurrentPlayer = PlayerStats{ playerName, 0 };
+}
+
+void GameManager::SavePlayerStats()
+{
+	std::cout << "Player Name: " << CurrentPlayer.Name << ", Score: " << CurrentPlayer.Score << std::endl;
+	HighScores.push_back(CurrentPlayer);
 }

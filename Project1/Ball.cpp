@@ -1,9 +1,14 @@
 #include "Ball.h"
+#include "GameManager.h"
+#include "Const.h"
 
 bool Ball::IsCollidingWith(GameObject* other) {
+
+
     return position == other->GetPosition();
 }
 
+//also handles Wall collision
 bool Ball::HasObjectAtPosition(int x, int y) {
     Vector2 targetPosition(x, y);
 
@@ -28,6 +33,12 @@ void Ball::Bounce(GameObject* other) {
     bool hasObjectLeft = HasObjectAtPosition(otherPosition.x - 1, otherPosition.y);
     bool hasObjectRight = HasObjectAtPosition(otherPosition.x + 1, otherPosition.y);
 
+    //out of bounds collision
+    if (Wall* wall = dynamic_cast<Wall*>(other)) {
+        if (wall->GetIsBottom()) {
+            GameManager::GetInstance().GameFinished();
+        }
+    }
     bool bounceHorizontal = hasObjectAbove || hasObjectBelow;
     bool bounceVertical = hasObjectLeft || hasObjectRight;
 
@@ -46,6 +57,16 @@ void Ball::Bounce(GameObject* other) {
     }
 }
 
+void Ball::HandleCollision(GameObject* other)
+{
+    if (!dynamic_cast<Wall*>(other) && !dynamic_cast<Pad*>(other))
+    {
+        if (Brick* brick = dynamic_cast<Brick*>(other)) {
+            brick->Destroy();
+        }
+    }
+}
+
 void Ball::Update() {
     position.x = position.x + direction.x;
     position.y = position.y + direction.y;
@@ -59,6 +80,8 @@ void Ball::Update() {
 
         if (IsCollidingWith(currentObject)) {
             Bounce(currentObject);
+            HandleCollision(currentObject);
+
             break;
         }
     }

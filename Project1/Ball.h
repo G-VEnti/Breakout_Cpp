@@ -14,6 +14,7 @@ private:
     bool IsCollidingWith(GameObject* other);
     bool HasObjectAtPosition(int x, int y);
     void Bounce(GameObject* other);
+	void HandleCollision(GameObject* other);
 
 public:
     Ball(Vector2 newPosition, ConsoleColor newColor, std::vector<GameObject*>& gameObjects)
