@@ -35,5 +35,3 @@ private:
 	//avoid adcidental instanciation
 	GameManager(GameManager const&);              
 	void operator=(GameManager const&); 
-
-};
