@@ -5,6 +5,8 @@
 #include "Brick.h"
 #include "Ball.h"
 #include "Vector2.h"
+#include "GameManager.h"
+#include <string>
 
 void GameplayScene::CreateWalls(std::vector<GameObject*>& objects) {
 	for (int i = 0; i < MAP_SIZE; i++) {
@@ -36,6 +38,8 @@ void GameplayScene::CreateBall(std::vector<GameObject*>& objects) {
 
 void GameplayScene::Start()
 {
+	GameManager::GetInstance().NewGame("Player1");
+
 	CreateWalls(objects);
 	CreateBricks(objects);
 	CreatePlayer(objects);
@@ -48,7 +52,7 @@ void GameplayScene::Update()
 
 	while (!exitScene)
 	{
-		Sleep(100);
+		Sleep(1000);
 
 		for (int i = 0; i < objects.size(); i++) {
 			objects[i]->Update();
@@ -61,26 +65,28 @@ void GameplayScene::Update()
 
 
 	Clear();
+	GameManager::GetInstance().GameFinished();
 	nextScene = SceneIndex::MAIN_MENU;
 }
 void GameplayScene::Clear() {
 
 
-	/*for (GameObject* var : objects)
+	for (GameObject* var : objects)
 	{
-		printf(dynamic_cast<Ball*>(var) == nullptr);
-		if (typeid(var).name() == "b") {
-			delete var;
-		}
+	delete var;
+	objects.clear();
 	}
-	*/
-
 }
 
 void GameplayScene::Render()
 {
 	system("cls");
 	ConsoleSetColor(WHITE, BLACK);
+
+	ConsoleXY(0, MAP_SIZE);
+	std::cout << "Player: " + GameManager::GetInstance().GetPlayerName() << std::endl;
+	std::cout << "Score " + std::to_string(GameManager::GetInstance().GetPlayerScore());
+
 
 	for (int i = 0; i < objects.size(); i++) {
 		objects[i]->Render();
