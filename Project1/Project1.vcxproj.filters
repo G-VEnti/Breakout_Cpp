@@ -48,7 +48,7 @@
     <ClCompile Include="GameScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MenunScene.cpp">
+    <ClCompile Include="MenuScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameManager.cpp">
@@ -89,11 +89,11 @@
     <ClInclude Include="RankingScene.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="MenuScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameManager.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuScene.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

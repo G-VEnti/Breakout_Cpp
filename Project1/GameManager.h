@@ -17,13 +17,13 @@ public:
 	std::string GetPlayerName();
 
 	void AddScore(int scoreToAdd);
-	
+
 	void GameFinished();
 	void NewGame(std::string playerName);
 
 
 private:
-	GameManager(){}
+	GameManager() {}
 	//save the current player stats to the highscore list,call only when game is over
 	void SavePlayerStats();
 
@@ -33,5 +33,6 @@ private:
 	std::vector<PlayerStats> HighScores;
 
 	//avoid adcidental instanciation
-	GameManager(GameManager const&);              
-	void operator=(GameManager const&); 
+	GameManager(GameManager const&);
+	void operator=(GameManager const&);
+};

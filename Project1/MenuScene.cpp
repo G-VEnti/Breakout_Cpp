@@ -13,10 +13,10 @@ void MenuScene::Update()
 	while (!exitScene)
 	{
 		Sleep(100);
-		GameManager::GetInstance()->PrintHi();
-		for (int i = 0; i < objects.size(); i++) {
+		//GameManager::GetInstance().PrintHi();
+		/*for (int i = 0; i < objects.size(); i++) {
 			objects[i]->Update();
-		}
+		}*/
 
 		exitScene = GetAsyncKeyState('1');
 
@@ -29,7 +29,7 @@ void MenuScene::Update()
 void MenuScene::Render()
 {
 	system("cls");
-	std::cout << "Menu, press 1 to continue:";
+	std::cout << "==== Welcome to BreakOut ====\n\n - Press 1 to start game\n - Press 2 to show the ranking\n - Press 3 to load game\n - Press 4 to exit";
 }
 
 void MenuScene::Clear()

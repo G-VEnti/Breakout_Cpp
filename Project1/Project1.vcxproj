@@ -133,7 +133,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MenunScene.cpp" />
+    <ClCompile Include="MenuScene.cpp" />
     <ClCompile Include="Pad.cpp" />
     <ClCompile Include="Scene.cpp" />
   </ItemGroup>

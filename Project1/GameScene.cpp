@@ -65,7 +65,7 @@ void GameplayScene::Update()
 
 
 	Clear();
-	GameManager::GetInstance().GameFinished();
+	//GameManager::GetInstance().GameFinished();
 	nextScene = SceneIndex::MAIN_MENU;
 }
 void GameplayScene::Clear() {

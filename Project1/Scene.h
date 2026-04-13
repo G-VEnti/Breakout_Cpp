@@ -15,8 +15,8 @@ protected:
 	SceneIndex nextScene;
 
 
-	//Scene();
-	//~Scene();
+	Scene() {};
+	//~Scene() {};
 
 public:
 
