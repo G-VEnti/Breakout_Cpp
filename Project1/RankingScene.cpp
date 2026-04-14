@@ -42,7 +42,7 @@ std::string RankingScene::ReadBin()
 
 
 	/*std::fstream saveBinFile;
-	std::string userName;
+	PlayerStats actualPlayer;
 	int playerNum;
 
 	saveBinFile.open("Ranking.bin", std::ios::out | std::ios::binary);
@@ -58,20 +58,22 @@ std::string RankingScene::ReadBin()
 		for (int i = 0; i < playerNum; i++)
 		{
 			std::cout << "Enter username: ";
-			std::cin >> userName;
+			std::cin >> actualPlayer.playerName;
+			std::cout << "Enter score: ";
+			std::cin >> actualPlayer.score;
 
-			size_t usernameStrSize = userName.size();
+			size_t usernameStrSize = actualPlayer.playerName.size();
 
 			saveBinFile.write(reinterpret_cast<char*>(&usernameStrSize), sizeof(usernameStrSize));
-			saveBinFile.write(userName.c_str(), sizeof(char) * usernameStrSize);
-
+			saveBinFile.write(actualPlayer.playerName.c_str(), sizeof(char) * usernameStrSize);
+			saveBinFile.write(reinterpret_cast<char*>(&actualPlayer.score), sizeof(int));
 		}
 	}
 	saveBinFile.close();*/
 #pragma endregion
 
 	std::ifstream saveBinFile;
-	std::string playerName;
+	PlayerStats player;
 	int rankedPlayers;
 	size_t nameSize;
 	std::string ranking = "";
@@ -84,9 +86,10 @@ std::string RankingScene::ReadBin()
 		for (int i = 0; i < rankedPlayers; i++)
 		{
 			saveBinFile.read(reinterpret_cast<char*>(&nameSize), sizeof(size_t));
-			playerName.resize(nameSize);
-			saveBinFile.read(&playerName[0], sizeof(char) * nameSize);
-			ranking += std::to_string(i + 1) + ". " + playerName + ".\n";
+			player.playerName.resize(nameSize);
+			saveBinFile.read(&player.playerName[0], sizeof(char) * nameSize);
+			saveBinFile.read(reinterpret_cast<char*>(&player.score), sizeof(int));
+			ranking += std::to_string(i + 1) + ". " + player.playerName + " Score = " + std::to_string(player.score) + ".\n";
 		}
 	}
 	saveBinFile.close();

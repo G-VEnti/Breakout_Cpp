@@ -5,6 +5,8 @@
 
 class GameplayScene : public Scene 
 {
+private:
+
 public:
 
 
@@ -18,4 +20,6 @@ public:
 	void Update() override;
 	void Clear() override;
 	void Render() override;
+
+	void ExitGame();
 };

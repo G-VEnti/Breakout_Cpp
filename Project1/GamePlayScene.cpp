@@ -6,7 +6,10 @@
 #include "Ball.h"
 #include "Vector2.h"
 #include "GameManager.h"
+#include "Scene.h"
 #include <string>
+#include <list>
+#include <fstream>
 
 void GameplayScene::CreateWalls(std::vector<GameObject*>& objects) {
 	for (int i = 0; i < MAP_SIZE; i++) {
@@ -68,13 +71,13 @@ void GameplayScene::Update()
 	//GameManager::GetInstance().GameFinished();
 	nextScene = SceneIndex::MAIN_MENU;
 }
-void GameplayScene::Clear() {
 
-
+void GameplayScene::Clear()
+{
 	for (GameObject* var : objects)
 	{
-	delete var;
-	objects.clear();
+		delete var;
+		objects.clear();
 	}
 }
 
@@ -94,3 +97,53 @@ void GameplayScene::Render()
 
 	ConsoleXY(MAP_SIZE, MAP_SIZE);
 }
+
+void GameplayScene::ExitGame()
+{
+	PlayerStats currentPlayer;
+
+	do
+	{
+		system("cls");
+		std::cout << "----- Quitting game -----\n\nEnter your name: ";
+		std::cin >> currentPlayer.playerName;
+	} while (currentPlayer.playerName.empty());
+
+	std::fstream saveBinFile;
+	int rankedPlayers;
+	size_t nameSize;
+
+	saveBinFile.open("Ranking.bin", std::ios::in | std::ios::binary);
+	if (!saveBinFile.is_open()) std::cout << "[ERROR] Can't open ranking file.";
+	else
+	{
+		saveBinFile.read(reinterpret_cast<char*>(&rankedPlayers), sizeof(int));
+		if (rankedPlayers == 0)
+		{
+			saveBinFile.close();
+
+			rankedPlayers += 1;
+			saveBinFile.open("Ranking.bin", std::ios::out | std::ios::binary);
+
+			nameSize = currentPlayer.playerName.size();
+		}
+		else
+		{
+			PlayerStats tmpPlayerStats;
+			std::list<PlayerStats> rankedPlayerStats;
+
+			for (int i = 0; i < rankedPlayers; i++)
+			{
+				saveBinFile.read(reinterpret_cast<char*>(&nameSize), sizeof(size_t));
+				tmpPlayerStats.playerName.resize(nameSize);
+				saveBinFile.read(&tmpPlayerStats.playerName[0], sizeof(char) * nameSize);
+				saveBinFile.read(reinterpret_cast<char*>(&tmpPlayerStats.score), sizeof(int));
+
+				rankedPlayerStats.push_back(tmpPlayerStats);
+			}
+		}
+	}
+}
+
+//void GamePlayScene::BubbleSort();
+//void GamePlayScene::WriteRankingBin();
