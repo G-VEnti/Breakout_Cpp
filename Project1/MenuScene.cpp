@@ -18,12 +18,34 @@ void MenuScene::Update()
 			objects[i]->Update();
 		}*/
 
-		exitScene = GetAsyncKeyState('1');
+		
+		exitScene = ChooseScene();
 
 		Render();
 	}
+}
 
-	nextScene = SceneIndex::GAMEPLAY;
+bool MenuScene::ChooseScene()
+{
+	bool exitScene = false;
+
+	if (GetAsyncKeyState('1'))
+	{
+		nextScene = SceneIndex::GAMEPLAY;
+		exitScene = true;
+	}
+	else if (GetAsyncKeyState('2'))
+	{
+		nextScene = SceneIndex::RANKING;
+		exitScene = true;
+	}
+	else if (GetAsyncKeyState('3'))
+	{
+		nextScene = SceneIndex::EXIT;
+		exitScene = true;
+	}
+	
+	return exitScene;
 }
 
 void MenuScene::Render()

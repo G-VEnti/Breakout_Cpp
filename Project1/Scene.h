@@ -7,7 +7,7 @@
 class Scene
 {
 public:
-	enum SceneIndex { MAIN_MENU, GAMEPLAY, RANKING };
+	enum SceneIndex { MAIN_MENU, GAMEPLAY, RANKING, EXIT };
 
 protected:
 

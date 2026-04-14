@@ -1,4 +1,4 @@
-#include "GameScene.h"
+#include "GamePlayScene.h"
 #include "Const.h"
 #include "Wall.h" 
 #include "Pad.h"
