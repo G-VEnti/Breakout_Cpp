@@ -2,6 +2,17 @@
 #include "GameManager.h"
 #include "Const.h"
 
+void Ball::GetPlayerPad()
+{
+    for (int i = 0; i < objects->size(); i++) {
+        if (Pad* pad = dynamic_cast<Pad*>((*objects)[i])) {
+            playerPad.reset(pad);
+            break;
+        }
+	}
+
+}
+
 bool Ball::IsCollidingWith(GameObject* other) {
 
 
@@ -61,23 +72,57 @@ void Ball::Bounce(GameObject* other) {
 
 void Ball::HandleCollision(GameObject* other,int indx)
 {
-    if (!dynamic_cast<Wall*>(other) && !dynamic_cast<Pad*>(other))
+    if (!dynamic_cast<Wall*>(other))
     {
         if (Brick* brick = dynamic_cast<Brick*>(other)) {
             brick->Destroy();
             objects->erase(objects->begin() + indx);
         }
-        if (Pad* pad = dynamic_cast<Pad*>(other))
-        {
-
-        }
+        if (Pad* pad = dynamic_cast<Pad*>(other)) {
+            //skip bounce it messes padcollisionhandle 
+            HandlePadCollision();
+            return;
+		}
     }
     Bounce(other);
 }
 
+void Ball::HandlePadCollision()
+{
+    //handle pad collison,middle is handled by default bounce (;
+    if (position.y == playerPad->GetPosition().y)
+    {
+        //offsets
+        int left = position.x - playerPad->GetWidth();
+        int right = position.x + playerPad->GetWidth();
+
+        //left side 
+        if (position.x <= playerPad->GetPosition().x)
+        {
+			//with absolute numbers so it always bounces to the same direction without depending on current direction
+            direction.x = -abs(direction.x);
+			direction.y = -abs(direction.y);
+
+        }
+        //right
+        else if (position.x > playerPad->GetPosition().x)
+        {
+            direction.x = abs(direction.x);
+			direction.y = -abs(direction.y);   
+
+        }
+
+    }
+
+
+}
+
 void Ball::Update() {
+    if (playerPad == nullptr) GetPlayerPad();
     position.x = position.x + direction.x;
     position.y = position.y + direction.y;
+
+	HandlePadCollision();
 
     for (int i = 0; i < objects->size(); i++) {
         GameObject* currentObject = (*objects)[i];
@@ -88,7 +133,6 @@ void Ball::Update() {
 
         if (IsCollidingWith(currentObject)) {
             HandleCollision(currentObject,i);
-
             break;
         }
     }

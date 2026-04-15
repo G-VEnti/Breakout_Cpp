@@ -56,7 +56,7 @@ void GameplayScene::Update()
 
 	while (!exitScene)
 	{
-		Sleep(1000);
+		Sleep(FRAME_DELAY);
 
 		for (int i = 0; i < objects.size(); i++) {
 			objects[i]->Update();
