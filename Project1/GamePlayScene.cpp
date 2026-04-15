@@ -7,6 +7,7 @@
 #include "Vector2.h"
 #include "GameManager.h"
 #include "Scene.h"
+#include "Const.h"
 #include <string>
 #include <list>
 #include <fstream>
@@ -146,4 +147,27 @@ void GameplayScene::ExitGame()
 }
 
 //void GamePlayScene::BubbleSort();
-//void GamePlayScene::WriteRankingBin();
+
+void GameplayScene::WriteRankingBin(std::list<PlayerStats> rankedPlayerStats, int rankedPlayers)
+{
+	std::ofstream saveBinFile;
+	if (!saveBinFile.is_open())
+	{
+		std::cout << "[ERROR] Can't open the file.";
+	}
+	else
+	{
+		std::list<PlayerStats>::iterator it;
+		it = rankedPlayerStats.begin();
+		saveBinFile.write(reinterpret_cast<char*>(&rankedPlayers), sizeof(int));
+		for (int i = 0; i < rankedPlayers; i++)
+		{
+			size_t usernameStrSize = it->playerName.size();
+
+			saveBinFile.write(reinterpret_cast<char*>(&usernameStrSize), sizeof(usernameStrSize));
+			saveBinFile.write(it->playerName.c_str(), sizeof(char) * usernameStrSize);
+			saveBinFile.write(reinterpret_cast<char*>(&it->score), sizeof(int));
+		}
+	}
+	saveBinFile.close();
+}

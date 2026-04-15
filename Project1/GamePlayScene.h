@@ -9,7 +9,6 @@ private:
 
 public:
 
-
 	void CreateWalls(std::vector<GameObject*>& objects);
 	void CreateBricks(std::vector<GameObject*>& objects);
 	void CreatePlayer(std::vector<GameObject*>& objects);
@@ -22,4 +21,5 @@ public:
 	void Render() override;
 
 	void ExitGame();
+	void WriteRankingBin(std::list<PlayerStats> rankedPlayerStats, int rankedPlayers);
 };

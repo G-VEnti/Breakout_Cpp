@@ -3,11 +3,10 @@
 * Class diagram.
 * Main menu:
   - [ ] Gameplay Acces
-  - [ ] Show ranking
+  - [x] Show ranking
   - [ ] Show credits
-  - [ ] Exit game
+  - [x] Exit game
 * Gameplay:
-  <br>
   - [ ] Vertical fall when game starts.
   - [ ] Control movement with arrows.
   - [ ] Pad rebound (center pad collision = wall collision, right/left pad collision = rebound to that side).
