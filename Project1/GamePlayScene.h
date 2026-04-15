@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include "GameObject.h"
+#include <list>
 #include "Vector2.h"
 
 class GameplayScene : public Scene 

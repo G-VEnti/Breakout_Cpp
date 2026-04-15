@@ -39,6 +39,8 @@ void Ball::Bounce(GameObject* other) {
             GameManager::GetInstance().GameFinished();
         }
     }
+
+
     bool bounceHorizontal = hasObjectAbove || hasObjectBelow;
     bool bounceVertical = hasObjectLeft || hasObjectRight;
 
@@ -57,14 +59,20 @@ void Ball::Bounce(GameObject* other) {
     }
 }
 
-void Ball::HandleCollision(GameObject* other)
+void Ball::HandleCollision(GameObject* other,int indx)
 {
     if (!dynamic_cast<Wall*>(other) && !dynamic_cast<Pad*>(other))
     {
         if (Brick* brick = dynamic_cast<Brick*>(other)) {
             brick->Destroy();
+            objects->erase(objects->begin() + indx);
+        }
+        if (Pad* pad = dynamic_cast<Pad*>(other))
+        {
+
         }
     }
+    Bounce(other);
 }
 
 void Ball::Update() {
@@ -79,8 +87,7 @@ void Ball::Update() {
         }
 
         if (IsCollidingWith(currentObject)) {
-            Bounce(currentObject);
-            HandleCollision(currentObject);
+            HandleCollision(currentObject,i);
 
             break;
         }
