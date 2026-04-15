@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="ConsoleControl.cpp" />
+    <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GamePlayScene.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="Brick.h" />
     <ClInclude Include="ConsoleControl.h" />
     <ClInclude Include="Const.h" />
+    <ClInclude Include="FileManager.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GamePlayScene.h" />

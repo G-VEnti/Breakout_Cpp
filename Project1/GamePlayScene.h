@@ -1,12 +1,12 @@
 #pragma once
+#include <list>
 #include "Scene.h"
 #include "GameObject.h"
 #include "Vector2.h"
+#include "FileManager.h"
 
 class GameplayScene : public Scene 
 {
-private:
-
 public:
 
 	void CreateWalls(std::vector<GameObject*>& objects);
@@ -22,4 +22,5 @@ public:
 
 	void ExitGame();
 	void WriteRankingBin(std::list<PlayerStats> rankedPlayerStats, int rankedPlayers);
+	//void BubbleSort(std::list<PlayerStats> rankedPlayerStats);
 };

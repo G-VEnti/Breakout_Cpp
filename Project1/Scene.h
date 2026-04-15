@@ -13,11 +13,6 @@ protected:
 
 	std::vector<GameObject*> objects;
 	SceneIndex nextScene;
-	struct PlayerStats
-	{
-		std::string playerName = "";
-		int score = 0;
-	};
 
 
 	Scene() {};
