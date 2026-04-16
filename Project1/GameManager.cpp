@@ -20,7 +20,17 @@ std::string GameManager::GetPlayerName()
 
 void GameManager::AddScore(int scoreToAdd)
 {
+	if (onStreak) {
+		StreakAmount += StreakAditive;
+		scoreToAdd += StreakAmount;
+	}
 	CurrentPlayer.Score += scoreToAdd;
+	onStreak = true;
+}
+
+bool GameManager::IsOnStreak()
+{
+	return onStreak;
 }
 
 int GameManager::GetLives() { return lives; }
@@ -28,6 +38,7 @@ int GameManager::GetLives() { return lives; }
 void GameManager::LoseLife(int amount = 1)
 {
 	lives--;
+	LoseStreak();
 	if (lives <= 0) {
 		GameFinished();
 	}
@@ -54,4 +65,9 @@ void GameManager::SavePlayerStats()
 {
 	std::cout << "Player Name: " << CurrentPlayer.Name << ", Score: " << CurrentPlayer.Score << std::endl;
 	HighScores.push_back(CurrentPlayer);
+}
+
+void GameManager::LoseStreak() { 
+	onStreak = false; StreakAmount = 0; 
+
 }

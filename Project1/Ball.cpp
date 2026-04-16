@@ -7,6 +7,7 @@ void Ball::GetPlayerPad()
     for (int i = 0; i < objects->size(); i++) {
         if (Pad* pad = dynamic_cast<Pad*>((*objects)[i])) {
             playerPad.reset(pad);
+			objects->push_back(playerPad.get());
             break;
         }
 	}
@@ -79,7 +80,8 @@ void Ball::HandleCollision(GameObject* other,int indx)
             objects->erase(objects->begin() + indx);
         }
         if (Pad* pad = dynamic_cast<Pad*>(other)) {
-            //skip bounce it messes padcollisionhandle 
+            //skip bounce it messes padcollisionhandle
+            GameManager::GetInstance().LoseStreak();
             HandlePadCollision();
             return;
 		}
@@ -92,23 +94,27 @@ void Ball::HandlePadCollision()
     //handle pad collison,middle is handled by default bounce (;
     if (position.y == playerPad->GetPosition().y)
     {
+        
         //offsets
         int left = position.x - playerPad->GetWidth();
         int right = position.x + playerPad->GetWidth();
 
+
         //left side 
-        if (position.x <= playerPad->GetPosition().x )
+        if (position.x <= playerPad->GetPosition().x - playerPad->GetWidth())
         {
 			//with absolute numbers so it always bounces to the same direction without depending on current direction
             direction.x = -abs(direction.x);
 			direction.y = -abs(direction.y);
+            GameManager::GetInstance().LoseStreak();
 
         }
         //right
-        else if (position.x > playerPad->GetPosition().x)
+        else if (position.x >= playerPad->GetPosition().x + playerPad->GetWidth())
         {
             direction.x = abs(direction.x);
-			direction.y = -abs(direction.y);   
+			direction.y = -abs(direction.y);
+			GameManager::GetInstance().LoseStreak();
 
         }
 
@@ -122,7 +128,7 @@ void Ball::Update() {
     position.x = position.x + direction.x;
     position.y = position.y + direction.y;
 
-	//HandlePadCollision();
+	HandlePadCollision();
 
     for (int i = 0; i < objects->size(); i++) {
         GameObject* currentObject = (*objects)[i];

@@ -21,8 +21,9 @@ public:
 	std::string GetPlayerName();
 
 	void AddScore(int scoreToAdd);
+	bool IsOnStreak();
+	void LoseStreak();
 
-	
 	int GetLives();
 	void LoseLife(int amout);
 	void NewGame(std::string playerName);
@@ -33,7 +34,11 @@ private:
 	//save the current player stats to the highscore list,call only when game is over
 	void SavePlayerStats();
 
-	
+
+	bool onStreak = false;
+	int StreakAditive = 5;
+	int StreakAmount = 0;
+
 	int lives = 3;
 	void GameFinished();
 

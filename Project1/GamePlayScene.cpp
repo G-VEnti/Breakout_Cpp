@@ -92,6 +92,7 @@ void GameplayScene::Render()
 	std::cout << "Player: " + GameManager::GetInstance().GetPlayerName() << std::endl;
 	std::cout << "Score " + std::to_string(GameManager::GetInstance().GetPlayerScore()) << std::endl;
 	std::cout << "Lives: " + std::to_string(GameManager::GetInstance().GetLives()) << std::endl;
+	if (GameManager::GetInstance().IsOnStreak())std::cout << "On Streak! " << std::endl;
 
 
 	for (int i = 0; i < objects.size(); i++) {
