@@ -90,7 +90,8 @@ void GameplayScene::Render()
 
 	ConsoleXY(0, MAP_SIZE);
 	std::cout << "Player: " + GameManager::GetInstance().GetPlayerName() << std::endl;
-	std::cout << "Score " + std::to_string(GameManager::GetInstance().GetPlayerScore());
+	std::cout << "Score " + std::to_string(GameManager::GetInstance().GetPlayerScore()) << std::endl;
+	std::cout << "Lives: " + std::to_string(GameManager::GetInstance().GetLives()) << std::endl;
 
 
 	for (int i = 0; i < objects.size(); i++) {

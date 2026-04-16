@@ -47,7 +47,7 @@ void Ball::Bounce(GameObject* other) {
     //out of bounds collision
     if (Wall* wall = dynamic_cast<Wall*>(other)) {
         if (wall->GetIsBottom()) {
-            GameManager::GetInstance().GameFinished();
+            GameManager::GetInstance().LoseLife(1);
         }
     }
 
@@ -97,7 +97,7 @@ void Ball::HandlePadCollision()
         int right = position.x + playerPad->GetWidth();
 
         //left side 
-        if (position.x <= playerPad->GetPosition().x)
+        if (position.x <= playerPad->GetPosition().x )
         {
 			//with absolute numbers so it always bounces to the same direction without depending on current direction
             direction.x = -abs(direction.x);
@@ -122,7 +122,7 @@ void Ball::Update() {
     position.x = position.x + direction.x;
     position.y = position.y + direction.y;
 
-	HandlePadCollision();
+	//HandlePadCollision();
 
     for (int i = 0; i < objects->size(); i++) {
         GameObject* currentObject = (*objects)[i];

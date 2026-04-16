@@ -23,6 +23,17 @@ void GameManager::AddScore(int scoreToAdd)
 	CurrentPlayer.Score += scoreToAdd;
 }
 
+int GameManager::GetLives() { return lives; }
+
+void GameManager::LoseLife(int amount = 1)
+{
+	lives--;
+	if (lives <= 0) {
+		GameFinished();
+	}
+
+}
+
 void GameManager::GameFinished()
 {
 	ConsoleXY(0,MAP_SIZE+4);
