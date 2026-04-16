@@ -53,8 +53,8 @@ void GameplayScene::Start()
 void GameplayScene::Update()
 {
 	bool exitScene = false;
-
-	while (!exitScene)
+	GameManager::GetInstance().SetState(gameState::GAMEPLAY);
+	while (GameManager::GetInstance().GetState() == GAMEPLAY)
 	{
 		Sleep(FRAME_DELAY);
 
@@ -62,7 +62,7 @@ void GameplayScene::Update()
 			objects[i]->Update();
 		}
 
-		exitScene = GetAsyncKeyState('1');
+		if (GetAsyncKeyState('1')) GameManager::GetInstance().SetState(gameState::EXIT);
 
 		Render();
 	}

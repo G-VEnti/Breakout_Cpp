@@ -128,7 +128,7 @@ void Ball::Update() {
     position.x = position.x + direction.x;
     position.y = position.y + direction.y;
 
-	HandlePadCollision();
+	//HandlePadCollision();
 
     for (int i = 0; i < objects->size(); i++) {
         GameObject* currentObject = (*objects)[i];

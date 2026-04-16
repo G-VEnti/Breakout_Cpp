@@ -49,9 +49,9 @@ void GameManager::GameFinished()
 {
 	ConsoleXY(0,MAP_SIZE+4);
 	std::cout << "Game Finished!" << std::endl;
+	SetState(EXIT);
 	SavePlayerStats();
 	//debug
-	quick_exit(0);
 
 }
 
@@ -68,6 +68,18 @@ void GameManager::SavePlayerStats()
 }
 
 void GameManager::LoseStreak() { 
-	onStreak = false; StreakAmount = 0; 
+	onStreak = false; 
+	StreakAmount = 0; 
+
+}
+
+gameState GameManager::GetState()
+{
+	return currentState;
+}
+
+void GameManager::SetState(gameState newState)
+{
+	currentState = newState;
 
 }
