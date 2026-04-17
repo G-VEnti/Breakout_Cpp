@@ -56,19 +56,20 @@ void Ball::Bounce(GameObject* other) {
     bool bounceHorizontal = hasObjectAbove || hasObjectBelow;
     bool bounceVertical = hasObjectLeft || hasObjectRight;
 
-    if (!bounceHorizontal && !bounceVertical) {
+    //top bottom
+    if (bounceVertical){
         direction.x = -direction.x;
         direction.y = -direction.y;
-        return;
+
     }
 
-    if (bounceVertical) {
-        direction.y = -direction.y;
-    }
-
+    //sides 
     if (bounceHorizontal) {
         direction.x = -direction.x;
+        //direction.y = -direction.y;
+
     }
+
 }
 
 void Ball::HandleCollision(GameObject* other,int indx)
@@ -82,8 +83,8 @@ void Ball::HandleCollision(GameObject* other,int indx)
         if (Pad* pad = dynamic_cast<Pad*>(other)) {
             //skip bounce it messes padcollisionhandle
             GameManager::GetInstance().LoseStreak();
-            HandlePadCollision();
-            return;
+            //HandlePadCollision();
+            //return;
 		}
     }
     Bounce(other);
@@ -124,11 +125,19 @@ void Ball::HandlePadCollision()
 }
 
 void Ball::Update() {
+
+	//out of bounds handling
+    if (position.x > MAP_SIZE || position.x < 0 ||
+        position.y > MAP_SIZE || position.y < 0) {
+        position.x = MAP_SIZE / 2;
+        position.y = MAP_SIZE / 2;
+    }
+
     if (playerPad == nullptr) GetPlayerPad();
     position.x = position.x + direction.x;
     position.y = position.y + direction.y;
 
-	//HandlePadCollision();
+	HandlePadCollision();
 
     for (int i = 0; i < objects->size(); i++) {
         GameObject* currentObject = (*objects)[i];

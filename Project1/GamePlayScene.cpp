@@ -28,6 +28,7 @@ void GameplayScene::CreateBricks(std::vector<GameObject*>& objects) {
 	for (int row = 1; row <= 3; row++) {
 		for (int col = 1; col < MAP_SIZE - 1; col++) {
 			objects.push_back(new Brick(Vector2(col, row), CYAN));
+			GameManager::GetInstance().currentBrikcs++;
 		}
 	}
 }

@@ -26,6 +26,10 @@ void GameManager::AddScore(int scoreToAdd)
 	}
 	CurrentPlayer.Score += scoreToAdd;
 	onStreak = true;
+	currentBrikcs--;
+	if (currentBrikcs <= 0) {
+		GameFinished();
+	}
 }
 
 bool GameManager::IsOnStreak()

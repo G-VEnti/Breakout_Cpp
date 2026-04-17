@@ -38,6 +38,8 @@ public:
 	void LoseLife(int amout);
 	void NewGame(std::string playerName);
 
+	int currentBrikcs;
+
 
 private:
 
