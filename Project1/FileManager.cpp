@@ -3,11 +3,6 @@
 
 const std::string FileManager::binFileName = "Ranking.bin";
 
-void SaveScore(PlayerStats playerInfo)
-{
-
-}
-
 std::list<PlayerStats> FileManager::ReadRanking()
 {
 #pragma region dataInsertTest
@@ -54,15 +49,22 @@ std::list<PlayerStats> FileManager::ReadRanking()
 	if (!saveBinFile.is_open()) std::cout << "[ERROR] Can't open ranking file.";
 	else
 	{
-		saveBinFile.read(reinterpret_cast<char*>(&playersInRanking), sizeof(int));
-		for (int i = 0; i < playersInRanking; i++)
+		if (FileManager::isFileEmpty(saveBinFile))
 		{
-			saveBinFile.read(reinterpret_cast<char*>(&nameSize), sizeof(size_t));
-			player.Name.resize(nameSize);
-			saveBinFile.read(&player.Name[0], sizeof(char) * nameSize);
-			saveBinFile.read(reinterpret_cast<char*>(&player.Score), sizeof(int));
-			rankedPlayerStats.push_back(player);
-			//ranking += std::to_string(i + 1) + ". " + player.Name + " Score = " + std::to_string(player.Score) + ".\n";
+			saveBinFile.close();
+			return rankedPlayerStats;
+		}
+		else
+		{
+			saveBinFile.read(reinterpret_cast<char*>(&playersInRanking), sizeof(int));
+			for (int i = 0; i < playersInRanking; i++)
+			{
+				saveBinFile.read(reinterpret_cast<char*>(&nameSize), sizeof(size_t));
+				player.Name.resize(nameSize);
+				saveBinFile.read(&player.Name[0], sizeof(char) * nameSize);
+				saveBinFile.read(reinterpret_cast<char*>(&player.Score), sizeof(int));
+				rankedPlayerStats.push_back(player);
+			}
 		}
 	}
 	saveBinFile.close();
@@ -79,8 +81,7 @@ void FileManager::WriteRanking(std::list<PlayerStats> rankedPlayerStats)
 	if (!saveBinFile.is_open()) std::cout << "[ERROR] Can't open the file.";
 	else
 	{
-		std::list<PlayerStats>::iterator it;
-		it = rankedPlayerStats.begin();
+		std::list<PlayerStats>::iterator it = rankedPlayerStats.begin();
 		saveBinFile.write(reinterpret_cast<char*>(&playersInRanking), sizeof(int));
 		for (int i = 0; i < playersInRanking; i++, it++)
 		{
@@ -104,4 +105,47 @@ std::string FileManager::RankingToString(std::list<PlayerStats> rankedPlayerStat
 	}
 
 	return ranking;
+}
+
+void FileManager::RankingSort(std::list<PlayerStats>& rankedPlayerStats)
+{
+	bool sorted = false;
+	PlayerStats tmpPlayerStatsContainer;
+	std::list<PlayerStats>::iterator it1, it2;
+
+
+	while (!sorted)
+	{
+		it1 = rankedPlayerStats.begin();
+		it2 = std::next(it1);
+		for (it1, it2; it2 != rankedPlayerStats.end(); it1++, it2++)
+		{
+			if (it1->Score < it2->Score)
+			{
+				tmpPlayerStatsContainer = *it1;
+				*it1 = *it2;
+				*it2 = tmpPlayerStatsContainer;
+				sorted = false;
+				break;
+			}
+			else if (it1->Score == it2->Score)
+			{
+				sorted = true;
+				continue;
+			}
+			else
+			{
+				sorted = true;
+			}
+		}
+	}
+}
+
+bool FileManager::isFileEmpty(std::ifstream& saveBinFile)
+{
+	saveBinFile.seekg(0, std::ios::end);
+	int filePointerPos = saveBinFile.tellg();
+	saveBinFile.seekg(0, std::ios::beg);
+	if (filePointerPos <= 2)return true;
+	else return false;
 }

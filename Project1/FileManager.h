@@ -14,4 +14,6 @@ public:
 	static std::list<PlayerStats> ReadRanking();
 	static void WriteRanking(std::list<PlayerStats> rankedPlayerStats);
 	static std::string RankingToString(std::list<PlayerStats> rankedPlayerStats);
+	static void RankingSort(std::list<PlayerStats>& rankedPlayerStats);
+	static bool isFileEmpty(std::ifstream& saveBinFile);
 };
