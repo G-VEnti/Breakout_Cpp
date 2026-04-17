@@ -122,27 +122,8 @@ void GameplayScene::ExitGame()
 	}
 	else
 	{
-
-		//BubbleSort
-
+		FileManager::RankingSort(rankedPlayers);
 		FileManager::WriteRanking(rankedPlayers);
 	}
-
 }
-
-//void GameplayScene::BubbleSort(std::list<PlayerStats> rankedPlayerStats)
-//{
-//	std::list<PlayerStats>::iterator it;
-//	for (it = rankedPlayerStats.begin(); std::next(it))
-//	{
-//
-//	}
-//	while (true)
-//	{
-//		for (size_t i = 0; i < length; i++)
-//		{
-//
-//		}
-//	}
-//}
 
