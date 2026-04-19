@@ -28,7 +28,7 @@ void RankingScene::Update()
 
 		Render();
 	}
-
+	FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
 	nextScene = SceneIndex::MAIN_MENU;
 }
 

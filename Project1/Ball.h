@@ -26,9 +26,8 @@ private:
 	void HandlePadCollision();
 
 public:
-    Ball(Vector2 newPosition, ConsoleColor newColor, std::vector<GameObject*>& gameObjects)
-        : GameObject(newPosition, '@', newColor) {
-        direction = Vector2(1, 1);
+    Ball(Vector2 newPosition, ConsoleColor newColor, std::vector<GameObject*>& gameObjects) : GameObject(newPosition, '@', newColor) {
+        direction = Vector2(0, 1);
         objects = &gameObjects;
     }
 

@@ -41,6 +41,11 @@ bool MenuScene::ChooseScene()
 	}
 	else if (GetAsyncKeyState('3'))
 	{
+		nextScene = SceneIndex::CREDITS;
+		exitScene = true;
+	}
+	else if (GetAsyncKeyState('0'))
+	{
 		nextScene = SceneIndex::EXIT;
 		exitScene = true;
 	}
@@ -51,7 +56,7 @@ bool MenuScene::ChooseScene()
 void MenuScene::Render()
 {
 	system("cls");
-	std::cout << "===== Welcome to BreakOut =====\n\n - Press 1 to start game\n - Press 2 to show the ranking\n - Press 3 to load game\n - Press 4 to exit";
+	std::cout << "===== Welcome to BreakOut =====\n\n 1- Play\n 2- Ranking\n 3- Credits\n 0- Exit";
 }
 
 void MenuScene::Clear()

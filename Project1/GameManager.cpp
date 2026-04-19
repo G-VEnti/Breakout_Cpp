@@ -67,7 +67,7 @@ void GameManager::NewGame(std::string playerName)
 
 void GameManager::SavePlayerStats()
 {
-	std::cout << "Player Name: " << CurrentPlayer.Name << ", Score: " << CurrentPlayer.Score << std::endl;
+	std::cout << "Score: " << CurrentPlayer.Score << std::endl;
 	HighScores.push_back(CurrentPlayer);
 }
 
@@ -77,12 +77,12 @@ void GameManager::LoseStreak() {
 
 }
 
-gameState GameManager::GetState()
+GameState GameManager::GetState()
 {
 	return currentState;
 }
 
-void GameManager::SetState(gameState newState)
+void GameManager::SetState(GameState newState)
 {
 	currentState = newState;
 

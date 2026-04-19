@@ -8,7 +8,7 @@ struct PlayerStats
 
 };
 
-enum gameState
+enum GameState
 {
 	MAIN_MENU,
 	GAMEPLAY,
@@ -31,8 +31,8 @@ public:
 	bool IsOnStreak();
 	void LoseStreak();
 
-	gameState GetState();
-	void SetState(gameState newState);
+	GameState GetState();
+	void SetState(GameState newState);
 
 	int GetLives();
 	void LoseLife(int amout);
@@ -43,7 +43,7 @@ public:
 
 private:
 
-	gameState currentState = MAIN_MENU;
+	GameState currentState = MAIN_MENU;
 	GameManager() {}
 	//save the current player stats to the highscore list,call only when game is over
 	void SavePlayerStats();

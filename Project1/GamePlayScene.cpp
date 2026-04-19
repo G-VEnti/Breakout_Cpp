@@ -8,7 +8,6 @@
 #include "GameManager.h"
 #include "Scene.h"
 #include "FileManager.h"
-#include "Const.h"
 #include <string>
 #include <fstream>
 
@@ -38,13 +37,11 @@ void GameplayScene::CreatePlayer(std::vector<GameObject*>& objects) {
 }
 
 void GameplayScene::CreateBall(std::vector<GameObject*>& objects) {
-	objects.push_back(new Ball(Vector2(2, MAP_SIZE / 2), WHITE, objects));
+	objects.push_back(new Ball(Vector2(MAP_SIZE / 2, ((MAP_SIZE * 3) / 4) - 5), WHITE, objects));
 }
 
 void GameplayScene::Start()
 {
-	GameManager::GetInstance().NewGame("Player1");
-
 	CreateWalls(objects);
 	CreateBricks(objects);
 	CreatePlayer(objects);
@@ -54,7 +51,7 @@ void GameplayScene::Start()
 void GameplayScene::Update()
 {
 	bool exitScene = false;
-	GameManager::GetInstance().SetState(gameState::GAMEPLAY);
+	GameManager::GetInstance().SetState(GameState::GAMEPLAY);
 	while (GameManager::GetInstance().GetState() == GAMEPLAY)
 	{
 		Sleep(FRAME_DELAY);
@@ -65,7 +62,7 @@ void GameplayScene::Update()
 
 		if (GetAsyncKeyState('1'))
 		{
-			GameManager::GetInstance().SetState(gameState::EXIT);
+			GameManager::GetInstance().SetState(GameState::EXIT);
 			break;
 		}
 
@@ -81,7 +78,7 @@ void GameplayScene::Update()
 
 void GameplayScene::Clear()
 {
-		objects.clear();
+	objects.clear();
 	for (GameObject* var : objects)
 	{
 		delete var;
@@ -94,9 +91,9 @@ void GameplayScene::Render()
 	ConsoleSetColor(WHITE, BLACK);
 
 	ConsoleXY(0, MAP_SIZE);
-	std::cout << "Player: " + GameManager::GetInstance().GetPlayerName() << std::endl;
 	std::cout << "Score " + std::to_string(GameManager::GetInstance().GetPlayerScore()) << std::endl;
 	std::cout << "Lives: " + std::to_string(GameManager::GetInstance().GetLives()) << std::endl;
+	std::cout << "Press 1 to finish current game." << std::endl;
 	if (GameManager::GetInstance().IsOnStreak())std::cout << "On Streak! " << std::endl;
 
 
@@ -112,9 +109,13 @@ void GameplayScene::ExitGame()
 	PlayerStats currentPlayer;
 	std::list<PlayerStats> rankedPlayers;
 
+	// Erase all inputs pressed while playing, AI help
+	FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
+
 	system("cls");
 	std::cout << "----- Quitting game -----\n\nEnter your name: ";
 	std::cin >> currentPlayer.Name;
+	if (currentPlayer.Name.empty()) currentPlayer.Name = "ANOnimus";
 	currentPlayer.Score = GameManager::GetInstance().GetPlayerScore();
 
 	rankedPlayers = FileManager::ReadRanking();
