@@ -63,7 +63,11 @@ void GameplayScene::Update()
 			objects[i]->Update();
 		}
 
-		if (GetAsyncKeyState('1')) GameManager::GetInstance().SetState(gameState::EXIT);
+		if (GetAsyncKeyState('1'))
+		{
+			GameManager::GetInstance().SetState(gameState::EXIT);
+			break;
+		}
 
 		Render();
 	}
@@ -77,10 +81,10 @@ void GameplayScene::Update()
 
 void GameplayScene::Clear()
 {
+		objects.clear();
 	for (GameObject* var : objects)
 	{
 		delete var;
-		objects.clear();
 	}
 }
 
